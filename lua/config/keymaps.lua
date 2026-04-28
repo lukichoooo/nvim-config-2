@@ -88,16 +88,10 @@ local opts = { noremap = true, silent = true }
 
 vim.keymap.set("n", "<A-h>", bmui.toggle_quick_menu, opts)
 -- Navigate buffers
-vim.keymap.set("n", "<A-j>", bmui.nav_next, opts)
-vim.keymap.set("n", "<A-k>", bmui.nav_prev, opts)
+-- vim.keymap.set("n", "H", bmui.nav_next, opts)
+-- vim.keymap.set("n", "L", bmui.nav_prev, opts)
 
 --------------------------------------------------------- Surround (surround with brackets)
 vim.keymap.set("x", "S", "<Plug>(nvim-surround-visual)", {
   desc = "Surround selection",
 })
-
--- flash jump
-vim.keymap.del({ "n", "x", "o" }, "f")
-vim.keymap.set({ "n", "x", "o" }, "f", function()
-  require("flash").jump()
-end, { desc = "Flash jump" })

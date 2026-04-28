@@ -11,8 +11,5 @@ return {
     local opts = { noremap = true, silent = true }
     -- Toggle buffer menu
     vim.keymap.set("n", "<A-h>", bmui.toggle_quick_menu, opts)
-    -- Navigate buffers
-    vim.keymap.set("n", "<A-j>", bmui.nav_next, opts)
-    vim.keymap.set("n", "<A-k>", bmui.nav_prev, opts)
   end,
 }
