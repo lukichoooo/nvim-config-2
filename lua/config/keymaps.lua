@@ -12,8 +12,8 @@ vim.keymap.set("n", "<C-c>", ":q<CR>", { noremap = true, silent = true })
 
 ----------------------------------------------------- telescope
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Telescope find files" })
-vim.keymap.set("n", "<leader>ff", builtin.live_grep, { desc = "Telescope live grep" })
+-- vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+-- vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 
 --------------------------------------------------------- Neo-Tree
@@ -27,30 +27,16 @@ vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions, quickfix" })
 vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Rename symbol" })
-vim.keymap.set("n", "L", vim.diagnostic.open_float, { desc = "Show error under cursor" })
-
-local function toggle_loclist()
-  local loclist = vim.fn.getloclist(0, { winid = 0 })
-  if loclist.winid ~= 0 then
-    vim.cmd("lclose")
-  else
-    vim.diagnostic.setloclist()
-
-    -- Open loclist and adjust options
-    vim.cmd("lopen")
-    local win = vim.fn.win_getid()
-    vim.api.nvim_win_set_option(win, "wrap", true) -- enable wrapping
-    vim.api.nvim_win_set_option(win, "linebreak", true) -- break at word boundaries
-    vim.api.nvim_win_set_option(win, "sidescrolloff", 5) -- scroll nicely
-  end
-end
-vim.keymap.set("n", "<leader>q", toggle_loclist)
+vim.keymap.set("n", "<A-l>", vim.diagnostic.open_float, { desc = "Show error under cursor" })
+vim.keymap.set("n", "<A-q>", function()
+  vim.diagnostic.setqflist()
+end, { desc = "Show all diagnostics (quickfix)" })
 
 -- Simple keybinding to restart easy-dotnet LSP
 vim.keymap.set("n", "<leader>rd", function()
   for _, client in pairs(vim.lsp.get_active_clients()) do
     if client.name == "easy_dotnet" then
-      client.stop()
+      client:stop(true)
       vim.defer_fn(function()
         vim.cmd("edit") -- reload current buffer
       end, 100)
@@ -99,8 +85,19 @@ end, { expr = true, silent = true })
 --
 local bmui = require("buffer_manager.ui")
 local opts = { noremap = true, silent = true }
--- Toggle buffer menu
+
 vim.keymap.set("n", "<A-h>", bmui.toggle_quick_menu, opts)
 -- Navigate buffers
 vim.keymap.set("n", "<A-j>", bmui.nav_next, opts)
 vim.keymap.set("n", "<A-k>", bmui.nav_prev, opts)
+
+--------------------------------------------------------- Surround (surround with brackets)
+vim.keymap.set("x", "S", "<Plug>(nvim-surround-visual)", {
+  desc = "Surround selection",
+})
+
+-- flash jump
+vim.keymap.del({ "n", "x", "o" }, "f")
+vim.keymap.set({ "n", "x", "o" }, "f", function()
+  require("flash").jump()
+end, { desc = "Flash jump" })
