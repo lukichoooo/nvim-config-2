@@ -173,5 +173,28 @@ gsettings set org.gnome.desktop.default-applications.terminal exec kitty
 gsettings set org.gnome.desktop.default-applications.terminal exec-arg ""
 ```
 
+### Set Kitty as default everywhere
+```yaml
+sudo apt install nautilus-extension-gnome-terminal
+gsettings set org.gnome.desktop.default-applications.terminal exec kitty
+```
 
+### Set Kitty Theme in ~/.config/kitty/kitty.conf
+```yaml
+# Font
+font_family      FiraCode Nerd Font
+font_size        10.5
+
+# Cursor
+cursor_shape     beam
+cursor_blink_interval 0.5
+
+# Window
+background_opacity 0.92
+
+# BEGIN_KITTY_THEME
+# Dark Pride
+include current-theme.conf
+# END_KITTY_THEME
+```
 

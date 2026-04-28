@@ -28,9 +28,18 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions, quickfix" })
 vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Rename symbol" })
 vim.keymap.set("n", "<A-l>", vim.diagnostic.open_float, { desc = "Show error under cursor" })
-vim.keymap.set("n", "<A-q>", function()
+local function toggle_quickfix()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.bo[vim.api.nvim_win_get_buf(win)].buftype == "quickfix" then
+      vim.api.nvim_win_close(win, true)
+      return
+    end
+  end
+
   vim.diagnostic.setqflist()
-end, { desc = "Show all diagnostics (quickfix)" })
+  vim.cmd("copen")
+end
+vim.keymap.set("n", "<A-q>", toggle_quickfix, { desc = "Toggle diagnostics (quickfix)" })
 
 -- Simple keybinding to restart easy-dotnet LSP
 vim.keymap.set("n", "<leader>rd", function()
@@ -95,3 +104,7 @@ vim.keymap.set("n", "<A-h>", bmui.toggle_quick_menu, opts)
 vim.keymap.set("x", "S", "<Plug>(nvim-surround-visual)", {
   desc = "Surround selection",
 })
+
+vim.keymap.set("n", "<A-d>", function()
+  vim.cmd("bd")
+end, { desc = "Close buffer" })
