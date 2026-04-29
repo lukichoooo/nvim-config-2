@@ -4,5 +4,4 @@ return {
   config = function()
     require("easy-dotnet").setup()
   end,
-  event = "VeryLazy",
 }
