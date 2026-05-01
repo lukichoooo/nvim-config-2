@@ -39,7 +39,14 @@ local function toggle_quickfix()
   vim.diagnostic.setqflist()
   vim.cmd("copen")
 end
-vim.keymap.set("n", "<A-q>", toggle_quickfix, { desc = "Toggle diagnostics (quickfix)" })
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function(args)
+    vim.keymap.set("n", "<A-q>", toggle_quickfix, {
+      buffer = args.buf,
+      desc = "Toggle diagnostics (quickfix)",
+    })
+  end,
+})
 
 -- Simple keybinding to restart easy-dotnet LSP
 vim.keymap.set("n", "<leader>rd", function()
