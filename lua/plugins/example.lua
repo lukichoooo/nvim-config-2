@@ -63,6 +63,11 @@ return {
         -- pyright will be automatically installed with mason and loaded with lspconfig
         pyright = {},
         roslyn = {},
+        intelephense = {
+          telemetry = { enabled = false },
+          format = { enable = true },
+        },
+        phpactor = {},
       },
     },
   },
@@ -111,6 +116,8 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
+        "phpactor",
+        "intelephense",
         "bash",
         "html",
         "javascript",
