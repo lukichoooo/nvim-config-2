@@ -17,7 +17,7 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help ta
 -- vim.keymap.set("n", "<leader>e", ":Neotree toggle left<CR>", { desc = "Toggle Neo-tree" })
 
 ----------------------------------------------------- undo Tree
--- vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 --------------------------------------------------------- LSP
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
