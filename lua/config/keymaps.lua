@@ -4,9 +4,6 @@
 
 vim.g.mapleader = " "
 
------------------------ Close buffer
-vim.keymap.set("n", "<C-c>", ":q<CR>", { noremap = true, silent = true })
-
 ----------------------- Save all Files
 -- vim.keymap.set("n", "<C-s>", ":wa<CR>", { noremap = true, silent = true })
 
@@ -99,10 +96,6 @@ vim.keymap.set("i", "<A-j>", function()
 end, { expr = true, silent = true })
 
 --
-local bmui = require("buffer_manager.ui")
-local opts = { noremap = true, silent = true }
-
-vim.keymap.set("n", "<A-h>", bmui.toggle_quick_menu, opts)
 -- Navigate buffers
 -- vim.keymap.set("n", "H", bmui.nav_next, opts)
 -- vim.keymap.set("n", "L", bmui.nav_prev, opts)
