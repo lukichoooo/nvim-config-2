@@ -1,6 +1,7 @@
 return {
   "saghen/blink.cmp",
   opts = {
+    completion = { documentation = { auto_show = true } },
     keymap = {
       ["<Tab>"] = { "select_next", "fallback" },
       ["<S-Tab>"] = { "select_prev", "fallback" },
